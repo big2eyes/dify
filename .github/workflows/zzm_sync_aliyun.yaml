@@ -1,0 +1,16 @@
+name: Sync Docker Image To Aliyun
+run-name: ${{ github.actor }} is running GitHub Actions
+on: [push]
+jobs:
+  Sync-Docker-Image-Actions:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: login to docker registry
+        run: |
+          docker login -u "${{ secrets.ALIYUN_DOCKER_NAME }}" -p "${{ secrets.ALIYUN_DOCKER_PASSWORD }}" crpi-5poygbapvay5ix9x.cn-hangzhou.personal.cr.aliyuncs.com
+      - name: execute zzm_sync_aliyun.sh
+        run: |
+          bash "${{ github.workspace }}/zzm_sync_aliyun.sh"
+      - run: echo "This job's status is ${{ job.status }}"
