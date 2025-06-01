@@ -1,8 +1,8 @@
 name: Sync Docker Image To Aliyun
 run-name: ${{ github.actor }} is running GitHub Actions
 on: 
-  schedule:
-    - cron: '0 0 * * 1'  # 每周一 UTC 0 点执行
+  #schedule:
+   # - cron: '0 0 * * 1'  # 每周一 UTC 0 点执行
   # 还能手动触发同步
   workflow_dispatch:
 jobs:
