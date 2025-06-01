@@ -1,20 +1,29 @@
-name: Sync Docker Image To Aliyun
-run-name: ${{ github.actor }} is running GitHub Actions
-on: 
-  #schedule:
-   # - cron: '0 0 * * 1'  # 每周一 UTC 0 点执行
-  # 还能手动触发同步
+name: Sync Docker Image To Aliyun
+
+on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
+
 jobs:
-  Sync-Docker-Image-Actions:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - name: login to docker registry
-        run: |
-          docker login -u "${{ secrets.ALIYUN_DOCKER_NAME }}" -p "${{ secrets.ALIYUN_DOCKER_PASSWORD }}" crpi-5poygbapvay5ix9x.cn-hangzhou.personal.cr.aliyuncs.com
-      - name: execute zzm_sync_aliyun.sh
-        run: |
-          bash "${{ github.workspace }}/zzm_sync_aliyun.sh"
-      - run: echo "This job's status is ${{ job.status }}"
+  Sync-Docker-Image-Actions:
+    runs-on: ubuntu-22.04
+    steps:  # 正确缩进（父级缩进2空格，steps同级缩进2空格）
+      - name: Check out repository code  # 步骤项缩进4空格
+        uses: actions/checkout@v4
+        
+      - name: Login to Docker Registry
+        run: |
+          docker login \
+            -u "${{ secrets.ALIYUN_DOCKER_NAME }}" \
+            -p "${{ secrets.ALIYUN_DOCKER_PASSWORD }}" \
+            crpi-5poygbapvay5ix9x.cn-hangzhou.personal.cr.aliyuncs.com
+        
+      - name: Execute Sync Script
+        run: |
+          bash "${{ github.workspace }}/zzm_sync_aliyun.sh"
+        
+      - name: Output Job Status  # 修正缺失的 name 字段
+        run: |
+          echo "This job's status is ${{ job.status }}"
