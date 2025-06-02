@@ -1,3 +1,3 @@
-FROM  dify: 1.4.1
-WORKDIR dify
+FROM  dify
+WORKDIR /dify
 COPY . .
