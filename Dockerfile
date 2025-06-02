@@ -1,3 +1,3 @@
-FROM  ubuntu22.04
+FROM  dify: 1.4.1
 WORKDIR dify
 COPY . .
